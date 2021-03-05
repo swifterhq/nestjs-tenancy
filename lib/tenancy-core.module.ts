@@ -219,7 +219,12 @@ export class TenancyCoreModule implements OnApplicationShutdown {
             tenantId = req.get(`${tenantIdentifier}`) || '';
         }
 
-        // Validate if tenant id is present
+        // Validate if tenant id is present in header
+        if (this.isEmpty(tenantId)) {
+            tenantId = req.query.tenantId as string || '';
+        }
+
+        // Validate if tenant id is present in query param
         if (this.isEmpty(tenantId)) {
             throw new BadRequestException(`${tenantIdentifier} is not supplied`);
         }
