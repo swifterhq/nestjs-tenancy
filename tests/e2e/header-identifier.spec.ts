@@ -18,28 +18,14 @@ describe('QueryTenancy', () => {
     await app.init();
   });
 
-  it(`should return created document`, (done) => {
-    const createDto = { name: 'Charlie', breed: 'Beagle', age: 6 };
+  it(`should error if tenant id is missing`, (done) => {
+    const createDto = { name: 'Nest', breed: 'Maine coon', age: 5 };
     request(server)
-      .post('/dogs?tenantId=swifter')
-      .send(createDto)
-      .expect(201)
-      .end((err, { body }) => {
-        expect(err).toBeNull();
-        expect(body.name).toEqual(createDto.name);
-        expect(body.age).toEqual(createDto.age);
-        expect(body.breed).toEqual(createDto.breed);
-        done();
-      });
-  });
-
-  it(`should return created document`, (done) => {
-    const createDto = { name: 'Charlie', breed: 'Beagle', age: 6 };
-    request(server)
-      .post('/dogs')
+      .post('/cats')
       .send(createDto)
       .expect(HttpStatus.BAD_REQUEST)
-      .end((err, { body }) => {
+      .end((err, response) => {
+        const { body } = response;
         expect(err).toBeNull();
         expect(body.statusCode).toEqual(HttpStatus.BAD_REQUEST);
         expect(body.error).toEqual('Bad Request');

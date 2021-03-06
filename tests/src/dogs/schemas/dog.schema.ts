@@ -1,16 +1,17 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
+export type DogDocument = Dog & Document;
 @Schema()
-export class Dog extends Document {
-    @Prop()
-    name: string;
+export class Dog {
+  @Prop()
+  name: string;
 
-    @Prop()
-    age: number;
+  @Prop()
+  age: number;
 
-    @Prop()
-    breed: string;
+  @Prop()
+  breed: string;
 }
 
 export const DogSchema = SchemaFactory.createForClass(Dog);

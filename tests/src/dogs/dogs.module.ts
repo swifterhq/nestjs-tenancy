@@ -5,10 +5,8 @@ import { DogsService } from './dogs.service';
 import { DogSchema, Dog } from './schemas/dog.schema';
 
 @Module({
-    imports: [
-        TenancyModule.forFeature([{ name: Dog.name, schema: DogSchema }])
-    ],
-    controllers: [DogsController],
-    providers: [DogsService],
+  imports: [TenancyModule.forFeature([{ name: Dog.name, schema: DogSchema }])],
+  controllers: [DogsController],
+  providers: [DogsService],
 })
-export class DogsModule { }
+export class DogsModule {}

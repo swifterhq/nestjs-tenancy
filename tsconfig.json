@@ -12,7 +12,7 @@
     "outDir": "./dist",
     "rootDir": "./lib",
     "strict": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
   },
   "include": [
     "lib/**/*"

@@ -6,11 +6,13 @@ import { getTeanantConnectionToken, getTenantModelToken } from '../utils';
  *
  * @param model any
  */
-export const InjectTenancyModel = (model: string) => Inject(getTenantModelToken(model));
+export const InjectTenancyModel = (model: string) =>
+  Inject(getTenantModelToken(model));
 
 /**
  * Get the instance of the tenant connection
  *
  * @param name any
  */
-export const InjectTenancyConnection = (name?: string) => Inject(getTeanantConnectionToken(name));
+export const InjectTenancyConnection = (name?: string) =>
+  Inject(getTeanantConnectionToken(name));

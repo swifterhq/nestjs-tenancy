@@ -5,15 +5,15 @@ import { Dog } from './schemas/dog.schema';
 
 @Controller('dogs')
 export class DogsController {
-    constructor(private readonly dogsService: DogsService) { }
+  constructor(private readonly dogsService: DogsService) {}
 
-    @Post()
-    async create(@Body() createDogDto: CreateDogDto) {
-        return this.dogsService.create(createDogDto);
-    }
+  @Post()
+  async create(@Body() createDogDto: CreateDogDto) {
+    return this.dogsService.create(createDogDto);
+  }
 
-    @Get()
-    async findAll(): Promise<Dog[]> {
-        return this.dogsService.findAll();
-    }
+  @Get()
+  async findAll(): Promise<Dog[]> {
+    return this.dogsService.findAll();
+  }
 }
