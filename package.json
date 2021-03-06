@@ -3,6 +3,12 @@
   "version": "1.0.14",
   "description": "Nestjs module for multitenancy support",
   "author": "Sandeep K <sandeepsuvit@gmail.com>",
+  "maintainers": [
+    {
+      "email": "mvneranjen@gmail.com",
+      "name": "Neranjen M V"
+    }
+  ],
   "repository": "https://github.com/swifterhq/nestjs-tenancy",
   "license": "MIT",
   "private": false,
