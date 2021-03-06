@@ -1,6 +1,6 @@
 {
   "name": "@swifterhq/nestjs-tenancy",
-  "version": "1.0.14",
+  "version": "2.0.0",
   "description": "Nestjs module for multitenancy support",
   "author": "Sandeep K <sandeepsuvit@gmail.com>",
   "maintainers": [
