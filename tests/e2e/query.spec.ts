@@ -4,7 +4,7 @@ import { Server } from 'http';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 
-describe('QueryTenancy', () => {
+describe('e2e query extractor', () => {
   let server: Server;
   let app: INestApplication;
 
@@ -18,18 +18,32 @@ describe('QueryTenancy', () => {
     await app.init();
   });
 
-  it(`should error if tenant id is missing`, (done) => {
-    const createDto = { name: 'Nest', breed: 'Maine coon', age: 5 };
+  it(`should return created document`, (done) => {
+    const createDto = { name: 'Charlie', breed: 'Beagle', age: 6 };
     request(server)
-      .post('/cats')
+      .post('/dogs?tenantId=swifter')
+      .send(createDto)
+      .expect(201)
+      .end((err, { body }) => {
+        expect(err).toBeNull();
+        expect(body.name).toEqual(createDto.name);
+        expect(body.age).toEqual(createDto.age);
+        expect(body.breed).toEqual(createDto.breed);
+        done();
+      });
+  });
+
+  it(`should return created document`, (done) => {
+    const createDto = { name: 'Charlie', breed: 'Beagle', age: 6 };
+    request(server)
+      .post('/dogs')
       .send(createDto)
       .expect(HttpStatus.BAD_REQUEST)
-      .end((err, response) => {
-        const { body } = response;
+      .end((err, { body }) => {
         expect(err).toBeNull();
         expect(body.statusCode).toEqual(HttpStatus.BAD_REQUEST);
         expect(body.error).toEqual('Bad Request');
-        expect(body.message).toContain('is not supplied');
+        expect(body.message).toContain('tenant id not supplied');
         done();
       });
   });

@@ -5,11 +5,10 @@
 </p>
 
 <p align="center">
-<a href="https://www.npmjs.com/~sandeepsuvit" target="_blank"><img src="https://img.shields.io/npm/v/@needle-innovision/nestjs-tenancy.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~sandeepsuvit" target="_blank"><img src="https://img.shields.io/npm/l/@needle-innovision/nestjs-tenancy.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~sandeepsuvit" target="_blank"><img src="https://img.shields.io/npm/dm/@needle-innovision/nestjs-tenancy.svg" alt="NPM Downloads" /></a>
+<a href="https://www.npmjs.com/@swifterhq/nestjs-tenancy" target="_blank"><img src="https://img.shields.io/npm/v/@swifterhq/nestjs-tenancy.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/@swifterhq/nestjs-tenancy" target="_blank"><img src="https://img.shields.io/npm/l/@swifterhq/nestjs-tenancy.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/@swifterhq/nestjs-tenancy" target="_blank"><img src="https://img.shields.io/npm/dm/@swifterhq/nestjs-tenancy.svg" alt="NPM Downloads" /></a>
 </p>
-
 ## Description
 
 [Mongoose](http://mongoosejs.com/) multitenancy module for [Nest](https://github.com/nestjs/nest).
@@ -17,7 +16,7 @@
 ## Installation
 
 ```bash
-$ npm i --save @needle-innovision/nestjs-tenancy
+$ npm i --save @swifterhq/nestjs-tenancy
 ```
 
 ## Basic usage
@@ -26,13 +25,14 @@ $ npm i --save @needle-innovision/nestjs-tenancy
 
 ```typescript
 import { Module } from "@nestjs/common";
-import { TenancyModule } from "@needle-innovision/nestjs-tenancy";
+import { TenancyModule } from "@swifterhq/nestjs-tenancy";
 import { CatsModule } from "./cat.module.ts";
+import { fromHeader } from "@swifterhq/nestjs-tenancy/extractors";
 
 @Module({
   imports: [
     TenancyModule.forRoot({
-        tenantIdentifier: 'X-TENANT-ID',
+        tenantExtractor: fromHeader('X-TENANT-ID'),
         options: () => {},
         uri: (tenantId: string) => `mongodb://localhost/test-tenant-${tenantId}`,
     }),
@@ -71,7 +71,7 @@ Inject Cat for `CatsModule`
 
 ```typescript
 import { Module } from '@nestjs/common';
-import { TenancyModule } from '@needle-innovision/nestjs-tenancy';
+import { TenancyModule } from '@swifterhq/nestjs-tenancy';
 import { CatsController } from './cats.controller';
 import { CatsService } from './cats.service';
 import { Cat, CatSchema } from './schemas/cat.schema';
@@ -92,7 +92,7 @@ Get the cat model in a service
 
 ```typescript
 import { Injectable } from '@nestjs/common';
-import { InjectTenancyModel } from '@needle-innovision/nestjs-tenancy';
+import { InjectTenancyModel } from '@swifterhq/nestjs-tenancy';
 import { Model } from 'mongoose';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { Cat } from './schemas/cat.schema';
@@ -246,12 +246,13 @@ Finally you will also need to modify the module configuration.
 
 ```typescript
 import { Module } from "@nestjs/common";
-import { TenancyModule } from "@needle-innovision/nestjs-tenancy";
+import { TenancyModule } from "@swifterhq/nestjs-tenancy";
 import { CatsModule } from "./cat.module.ts";
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from './config';
 import { TenantModule } from './tenant/tenant.module';
 import { CustomTenantValidator } from './tenant/validators/custom-tenant.validator';
+import { fromHeader } from "@swifterhq/nestjs-tenancy/extractors";
 
 @Module({
   imports: [
@@ -271,7 +272,7 @@ import { CustomTenantValidator } from './tenant/validators/custom-tenant.validat
       useFactory: async (cfs: ConfigService, tVal: CustomTenantValidator) => {
         return {
           // Base tenant configurations
-          tenantIdentifier: 'X-TENANT-ID',
+          tenantExtractor: fromHeader('X-TENANT-ID'),
           options: () => {},
           uri: (tenantId: string) => `mongodb://localhost/test-tenant-${tenantId}`,
           // Custom validator to check if the tenant exist in common database
@@ -295,14 +296,15 @@ For enabling this you need to modify your configuration like below.
 
 ```typescript
 import { Module } from "@nestjs/common";
-import { TenancyModule } from "@needle-innovision/nestjs-tenancy";
+import { TenancyModule } from "@swifterhq/nestjs-tenancy";
 import { CatsModule } from "./cat.module.ts";
+import { fromSubdomain } from "@swifterhq/nestjs-tenancy/extractors";
 
 @Module({
   imports: [
     TenancyModule.forRoot({
         // This will allow the library to extract the subdomain as tenant id
-        isTenantFromSubdomain: true,
+        tenantExtractor: fromSubdomain(),
         options: () => {},
         uri: (tenantId: string) => `mongodb://localhost/test-tenant-${tenantId}`,
     }),
@@ -321,10 +323,10 @@ we can make use of the property in `TenancyModuleOptions` which is `forceCreateC
 
 ## Requirements
 
-1.  @nest/mongoose +6.4.0
-2.  @nestjs/common +6.10.1
-3.  @nestjs/core +6.10.1
-4.  mongoose (with typings `@types/mongoose`) +5.7.12
+1.  @nest/mongoose ^7.0.0
+2.  @nestjs/common ^7.0.0
+3.  @nestjs/core ^7.0.0
+4.  mongoose ^5.11.0 (with mongoose official typeings)
 
 ## Test
 
@@ -332,11 +334,3 @@ we can make use of the property in `TenancyModuleOptions` which is `forceCreateC
 # e2e tests
 $ npm run test:e2e
 ```
-
-## Stay in touch
-
-- Author - [Sandeep K](https://github.com/sandeepsuvit)
-
-## License
-
-  Nest is [MIT licensed](LICENSE).

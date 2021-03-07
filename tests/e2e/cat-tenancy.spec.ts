@@ -1,10 +1,8 @@
 import { HttpStatus, INestApplication } from '@nestjs/common';
-import { HttpErrorByCode } from '@nestjs/common/utils/http-error-by-code.util';
 import { Test } from '@nestjs/testing';
 import { Server } from 'http';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
-import { Cat } from '../src/cats/schemas/cat.schema';
 
 describe('CatTenancy', () => {
   let server: Server;
@@ -38,14 +36,12 @@ describe('CatTenancy', () => {
 
   it(`should not return documents from other tenants`, (done) => {
     const createDto = { name: 'Nest', breed: 'Maine coon', age: 5 };
-    let item: Cat;
     request(server)
       .post('/cats')
       .set('X-TENANT-ID', 'cats')
       .send(createDto)
       .expect(HttpStatus.CREATED)
       .end((err, { body }) => {
-        item = body as Cat;
         expect(err).toBeNull();
         expect(body._id).toBeDefined();
         expect(body.name).toEqual(createDto.name);

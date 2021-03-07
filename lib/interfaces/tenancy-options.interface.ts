@@ -1,4 +1,5 @@
 import { ModuleMetadata, Type } from '@nestjs/common/interfaces';
+import { TenantExtractor } from './tenant-extractor.interface';
 
 /**
  * Options for synchronous setup
@@ -8,24 +9,9 @@ import { ModuleMetadata, Type } from '@nestjs/common/interfaces';
  */
 export interface TenancyModuleOptions extends Record<string, any> {
   /**
-   * If `true`, tenant id will be extracted from the subdomain
+   * function to extract tenant id from the request
    */
-  isTenantFromSubdomain?: boolean;
-
-  /**
-   * Tenant id will be extracted using the keyword from the request header
-   */
-  tenantIdentifier?: string;
-
-  /**
-   * Tenant id identifier to get tenant id from query param
-   */
-  tenantQueryIdentifier?: string;
-
-  /**
-   * Use Tenant Id from query
-   */
-  tenantIdFromQuery?: boolean;
+  tenantExtractor: TenantExtractor;
 
   /**
    * URI for the tenant database
