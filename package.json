@@ -1,5 +1,5 @@
 {
-  "name": "@swifterhq/nestjs-tenancy",
+  "name": "@nean/nestjs-tenancy",
   "version": "3.0.0",
   "description": "Nestjs module for multitenancy support",
   "author": "Sandeep K <sandeepsuvit@gmail.com>",

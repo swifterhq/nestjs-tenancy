@@ -5,9 +5,9 @@
 </p>
 
 <p align="center">
-<a href="https://www.npmjs.com/@swifterhq/nestjs-tenancy" target="_blank"><img src="https://img.shields.io/npm/v/@swifterhq/nestjs-tenancy.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/@swifterhq/nestjs-tenancy" target="_blank"><img src="https://img.shields.io/npm/l/@swifterhq/nestjs-tenancy.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/@swifterhq/nestjs-tenancy" target="_blank"><img src="https://img.shields.io/npm/dm/@swifterhq/nestjs-tenancy.svg" alt="NPM Downloads" /></a>
+<a href="https://www.npmjs.com/@nean/nestjs-tenancy" target="_blank"><img src="https://img.shields.io/npm/v/@nean/nestjs-tenancy.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/@nean/nestjs-tenancy" target="_blank"><img src="https://img.shields.io/npm/l/@nean/nestjs-tenancy.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/@nean/nestjs-tenancy" target="_blank"><img src="https://img.shields.io/npm/dm/@nean/nestjs-tenancy.svg" alt="NPM Downloads" /></a>
 </p>
 ## Description
 
@@ -16,7 +16,7 @@
 ## Installation
 
 ```bash
-$ npm i --save @swifterhq/nestjs-tenancy
+$ npm i --save @nean/nestjs-tenancy
 ```
 
 ## Basic usage
@@ -25,9 +25,9 @@ $ npm i --save @swifterhq/nestjs-tenancy
 
 ```typescript
 import { Module } from "@nestjs/common";
-import { TenancyModule } from "@swifterhq/nestjs-tenancy";
+import { TenancyModule } from "@nean/nestjs-tenancy";
 import { CatsModule } from "./cat.module.ts";
-import { fromHeader } from "@swifterhq/nestjs-tenancy/extractors";
+import { fromHeader } from "@nean/nestjs-tenancy/extractors";
 
 @Module({
   imports: [
@@ -71,7 +71,7 @@ Inject Cat for `CatsModule`
 
 ```typescript
 import { Module } from '@nestjs/common';
-import { TenancyModule } from '@swifterhq/nestjs-tenancy';
+import { TenancyModule } from '@nean/nestjs-tenancy';
 import { CatsController } from './cats.controller';
 import { CatsService } from './cats.service';
 import { Cat, CatSchema } from './schemas/cat.schema';
@@ -92,7 +92,7 @@ Get the cat model in a service
 
 ```typescript
 import { Injectable } from '@nestjs/common';
-import { InjectTenancyModel } from '@swifterhq/nestjs-tenancy';
+import { InjectTenancyModel } from '@nean/nestjs-tenancy';
 import { Model } from 'mongoose';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { Cat } from './schemas/cat.schema';
@@ -246,13 +246,13 @@ Finally you will also need to modify the module configuration.
 
 ```typescript
 import { Module } from "@nestjs/common";
-import { TenancyModule } from "@swifterhq/nestjs-tenancy";
+import { TenancyModule } from "@nean/nestjs-tenancy";
 import { CatsModule } from "./cat.module.ts";
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from './config';
 import { TenantModule } from './tenant/tenant.module';
 import { CustomTenantValidator } from './tenant/validators/custom-tenant.validator';
-import { fromHeader } from "@swifterhq/nestjs-tenancy/extractors";
+import { fromHeader } from "@nean/nestjs-tenancy/extractors";
 
 @Module({
   imports: [
@@ -296,9 +296,9 @@ For enabling this you need to modify your configuration like below.
 
 ```typescript
 import { Module } from "@nestjs/common";
-import { TenancyModule } from "@swifterhq/nestjs-tenancy";
+import { TenancyModule } from "@nean/nestjs-tenancy";
 import { CatsModule } from "./cat.module.ts";
-import { fromSubdomain } from "@swifterhq/nestjs-tenancy/extractors";
+import { fromSubdomain } from "@nean/nestjs-tenancy/extractors";
 
 @Module({
   imports: [
